@@ -13,3 +13,19 @@ services:
       - ./music_files:/app/music_files
       - ./bot/session_name.session:/app/session_name.session
     restart: unless-stopped
+    ports:
+      - "8000:8000"
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command: --config.file=/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+
