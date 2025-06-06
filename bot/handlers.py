@@ -5,7 +5,9 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import ContextTypes
 
 from database import get_last_tracks, get_all_tracks
+
 from metrics import TRACKS_SENT
+
 
 CHANNEL_CHAT_ID = os.getenv("CHANNEL_CHAT_ID")
 
@@ -37,7 +39,9 @@ async def play_radio(context: ContextTypes.DEFAULT_TYPE, chat_id: int, playlist_
                 await context.bot.send_audio(chat_id=chat_id,
                                              audio=audio,
                                              title=track["title"])
+
             TRACKS_SENT.labels(playlist_name).inc()
+
             try:
                 duration = MP3(track["file_path"]).info.length
             except Exception:
@@ -60,7 +64,9 @@ async def button_callback_handler(update: Update, context: ContextTypes.DEFAULT_
             await context.bot.send_audio(chat_id=query.from_user.id,
                                          audio=audio,
                                          title=track["title"])
+
         TRACKS_SENT.labels(playlist_name).inc()
+
 
     await query.edit_message_text(f"Отправлено {len(tracks)} трек(а)")
     context.application.create_task(play_radio(context, query.from_user.id, playlist_name))
