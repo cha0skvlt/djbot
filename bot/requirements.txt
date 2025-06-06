@@ -1,0 +1,9 @@
+python-telegram-bot>=20.0
+python-dotenv
+mutagen
+pyrogram>=2.0
+tgcrypto
+pytgcalls
+ffmpeg-python
+prometheus-client
+pytest
