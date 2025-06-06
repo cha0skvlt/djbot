@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  telegram-bot:
+    build:
+      context: ./bot
+      dockerfile: Dockerfile
+    container_name: telegram_music_bot
+    env_file:
+      - ./bot/.env
+    volumes:
+      - ./bot/pulse.db:/app/pulse.db
+      - ./bot/beat.db:/app/beat.db
+      - ./music_files:/app/music_files
+      - ./bot/session_name.session:/app/session_name.session
+    restart: unless-stopped
