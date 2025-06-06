@@ -5,3 +5,5 @@ pyrogram>=2.0
 tgcrypto
 pytgcalls
 ffmpeg-python
+prometheus-client
+pytest

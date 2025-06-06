@@ -1,5 +1,6 @@
 import os
 import logging
+from prometheus_client import start_http_server
 from dotenv import load_dotenv
 from telegram.ext import (
     ApplicationBuilder,
@@ -9,6 +10,7 @@ from telegram.ext import (
 
 import database
 from handlers import send_menu_to_channel, button_callback_handler, start_handler
+from metrics import TRACKS_SENT
 
 logging.basicConfig(level=logging.INFO)
 
@@ -28,6 +30,8 @@ async def on_startup(app):
 
 def main():
     token = load_config()
+    # expose metrics for Prometheus
+    start_http_server(8000)
     application = ApplicationBuilder().token(token).build()
 
     application.add_handler(CallbackQueryHandler(button_callback_handler))
