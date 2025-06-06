@@ -10,7 +10,8 @@
 
 ## Быстрый старт
 ```bash
-cp bot/.env.example bot/.env # заполните токены и ID
+cp bot/.env.example bot/.env  # заполните BOT_TOKEN, CHANNEL_CHAT_ID,
+                              # API_ID, API_HASH и SESSION_STRING
 docker-compose up --build
 ```
 
